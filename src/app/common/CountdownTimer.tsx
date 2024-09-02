@@ -27,6 +27,7 @@ const CountdownTimer = ({ scrollRef }: CountdownTimerProps) => {
   );
 };
 
+CountdownTimer.displayName = "CountdownTimer";
 export default CountdownTimer;
 
 const TimeWarning = styled.span`

@@ -87,7 +87,7 @@ const SortOptions = forwardRef<HTMLDivElement, SortOptionsProps>(
     );
   }
 );
-
+SortOptions.displayName = "SortOptions";
 export default SortOptions;
 
 const Container = styled.div<{

@@ -59,7 +59,7 @@ const TocItem = forwardRef<HTMLDivElement, TocItemProps>(
     );
   }
 );
-
+TocItem.displayName = "TocItem";
 export default TocItem;
 
 const Container = styled.div`
