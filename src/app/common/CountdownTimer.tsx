@@ -45,6 +45,8 @@ const Time = forwardRef<HTMLSpanElement, TimeProps>(({ timeLeft }, ref) => (
   <StyledTime ref={ref}>{timeLeft}</StyledTime>
 ));
 
+Time.displayName = "Time"; // 추가된 부분
+
 const StyledTime = styled.span`
   font-size: 32px;
   font-weight: 500;
