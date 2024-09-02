@@ -2,7 +2,7 @@
 
 import "./globals.css";
 import styled from "styled-components";
-import GlobalStyle from "./styles/GlobalStyles.ts";
+import GlobalStyle from "./styles/GlobalStyles";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { RecoilRoot } from "recoil";
