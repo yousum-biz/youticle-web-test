@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import NotFoundIcon from "@/assets/404page.svg"; // Ensure SVGs are handled correctly in Next.js
 import LogoHeader from "@/common/LogoHeader";

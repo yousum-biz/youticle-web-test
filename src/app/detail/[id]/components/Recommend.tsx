@@ -56,12 +56,12 @@ const Recommend = ({ detailData }: RecommendProps) => {
         handleClickIcon={handleClickIcon}
         variant="border"
       />
-      {/* {filteredAndSortedData.map((item, index) => {
+      {filteredAndSortedData.map((item, index) => {
         const topicIcon = YOUTUBE_TOPICS.find(
           (topic) => topic.topic === item.section
         )?.icon;
         return <RecommendCard key={index} icon={topicIcon} {...item} />;
-      })} */}
+      })}
     </Container>
   );
 };

@@ -14,6 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+          as="style"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <RecoilRoot>
           <AppContainer>

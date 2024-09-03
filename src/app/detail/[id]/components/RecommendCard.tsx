@@ -1,6 +1,6 @@
 "use client"; // Ensure the component is treated as a client component
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { detailDataState } from "@/store/detailData";
