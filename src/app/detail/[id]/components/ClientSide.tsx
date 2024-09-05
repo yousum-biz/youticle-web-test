@@ -10,6 +10,7 @@ import { DataProps } from "@/types/dataProps";
 import { formatSummary } from "@/utils/formatter";
 import { playerState } from "@/store/player";
 import { base64ToBlobUrl } from "@/utils/base64";
+import { isDesktop } from "react-device-detect";
 
 interface ClientSideProps {
   id: string;
@@ -117,7 +118,11 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
         <Upload>{detailData.upload_date} 업로드</Upload>
       </PageInfo>
       {isPlayerVisible && (
-        <VideoContainer ref={videoContainerRef} $isFixed={isFixed}>
+        <VideoContainer
+          ref={videoContainerRef}
+          $isFixed={isFixed}
+          $isDesktop={isDesktop}
+        >
           {isLoading && <Loader />}
           <YouTube
             videoId={detailData.id}
@@ -245,7 +250,7 @@ const TOC = styled.div`
   }
 `;
 
-const VideoContainer = styled.div<{ $isFixed: boolean }>`
+const VideoContainer = styled.div<{ $isFixed: boolean; $isDesktop: boolean }>`
   position: ${(props) => (props.$isFixed ? "fixed" : "static")};
   top: ${(props) => (props.$isFixed ? "52px" : "auto")};
   left: ${(props) => (props.$isFixed ? "0" : "auto")};
@@ -257,6 +262,7 @@ const VideoContainer = styled.div<{ $isFixed: boolean }>`
 
     iframe {
       width: 100vw;
+      max-width: ${({ $isDesktop }) => ($isDesktop ? "420px" : "none")};
     }
   }
 `;

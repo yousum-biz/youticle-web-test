@@ -1,5 +1,3 @@
-"use client"; // 클라이언트 컴포넌트임을 명시
-
 import { useState, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import TopicCard from "./TopicCard";
@@ -9,6 +7,7 @@ import { YOUTUBE_TOPICS } from "@/constants/topic";
 import GoToTopBtn from "@/common/GoToTopBtn";
 import CountdownTimer from "@/common/CountdownTimer";
 import SortOptions from "@/common/SortOptions";
+import TopicNav from "./TopicNav";
 import { topicState } from "@/store/topic";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -33,7 +32,7 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
     if (sortOptionsRef.current) {
       const { top } = sortOptionsRef.current.getBoundingClientRect();
       window.scrollTo({
-        top: window.scrollY + top - 94 - 52,
+        top: window.scrollY + top - 94 - 112,
         behavior: "smooth",
       });
     }
@@ -86,20 +85,13 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
         {TODAY_TITLE}
       </TodayTitle>
       <CountdownTimer scrollRef={scrollRef} />
-      <TopicNav $isFixed={isFixed}>
-        {YOUTUBE_TOPICS.map(({ topic, icon }) => (
-          <Topic key={topic} onClick={() => handleTopicClick(topic)}>
-            <IconBox selected={selectedTopic === topic}>{icon}</IconBox>
-            {topic === "뷰티/메이크업" ? (
-              <span>
-                뷰티/ <br /> 메이크업
-              </span>
-            ) : (
-              <span>{topic}</span>
-            )}
-          </Topic>
-        ))}
-      </TopicNav>
+      <TopicNavContainer>
+        <TopicNav
+          $isFixed={isFixed}
+          selectedTopic={selectedTopic}
+          handleTopicClick={handleTopicClick}
+        ></TopicNav>
+      </TopicNavContainer>
       <SortOptions
         ref={sortOptionsRef}
         isFixed={isFixed}
@@ -146,52 +138,7 @@ const TodayTitle = styled.span`
   gap: 12px;
 `;
 
-const TopicNav = styled.div<{ $isFixed: boolean }>`
-  width: calc(100% + 20px);
-  display: flex;
-  gap: 12px;
-  padding-top: 12px;
-  margin-bottom: 5px;
-  background-color: rgba(242, 242, 242, 1);
-
-  padding-right: ${(props) => (props.$isFixed ? "50px" : "auto")};
-  position: ${(props) => (props.$isFixed ? "fixed" : "static")};
-  top: ${(props) => (props.$isFixed ? "52px" : "auto")};
-  left: ${(props) => (props.$isFixed ? "20px" : "auto")};
-  z-index: ${(props) => (props.$isFixed ? 10000 : 0)};
-
-  overflow-x: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-`;
-
-const Topic = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-
-  span {
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 15px;
-
-    display: inline-block;
-    text-align: center;
-    width: 46px;
-  }
-`;
-
-const IconBox = styled.div<{ selected: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-
-  background-color: ${(props) => (props.selected ? "#30D5C8" : "#D9D9D9")};
+const TopicNavContainer = styled.div`
+  padding: 0;
+  margin-left: -20px;
 `;

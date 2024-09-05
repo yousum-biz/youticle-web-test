@@ -3,6 +3,7 @@
 import "./globals.css";
 import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyles";
+import { isDesktop } from "react-device-detect";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { RecoilRoot } from "recoil";
@@ -21,10 +22,14 @@ export default function RootLayout({
           as="style"
           crossOrigin="anonymous"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <RecoilRoot>
-          <AppContainer>
+          <AppContainer $isDesktop={isDesktop}>
             <GlobalStyle />
             <ScrollToTop />
             {children}
@@ -35,8 +40,9 @@ export default function RootLayout({
   );
 }
 
-const AppContainer = styled.div`
+const AppContainer = styled.div<{ $isDesktop: boolean }>`
   width: 100vw;
+  max-width: ${(props) => (props.$isDesktop ? "420px" : "none")};
   min-height: 100vh;
   padding: 0;
   margin: 0;

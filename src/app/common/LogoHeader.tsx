@@ -12,6 +12,7 @@ import YoutubeOffIcon from "@/assets/youtubeOff.svg";
 import YoutubeOnIcon from "@/assets/youtubeOn.svg";
 import ShareIcon from "@/assets/share.svg";
 import Toast from "./Toast";
+import { isDesktop } from "react-device-detect";
 
 interface LogoHeaderProps {
   title?: string;
@@ -38,19 +39,15 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
           setTimeout(() => setToastVisible(false), 2000);
         })
         .catch((err) => {
-          console.error("Failed to copy URL:", err);
+          console.error("URL 복사에 실패했습니다.", err);
         });
     } else {
-      console.warn("This browser does not support Clipboard API.");
+      console.warn("이 브라우저는 Clipboard API를 지원하지 않습니다.");
     }
   };
 
   const togglePlayerVisible = () => {
     setPlayer(!player);
-  };
-
-  const goBack = () => {
-    router.back();
   };
 
   const goHome = () => {
@@ -72,12 +69,12 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
 
   return (
     <>
-      <Container $isDetailPage={isDetailPage}>
+      <Container $isDetailPage={isDetailPage} $isDesktop={isDesktop}>
         <PageInfo>
-          {isDetailPage && <BackIcon onClick={goBack} />}
+          {isDetailPage && <BackIcon onClick={goHome} />}
           {title === "" ? (
             <span onClick={goHome} className="logo">
-              로고
+              YouTicle
             </span>
           ) : (
             <Title>{title}</Title>
@@ -108,8 +105,12 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
 
 export default LogoHeader;
 
-const Container = styled.header<{ $isDetailPage: boolean }>`
+const Container = styled.header<{
+  $isDetailPage: boolean;
+  $isDesktop: boolean;
+}>`
   width: 100%;
+  max-width: ${({ $isDesktop }) => ($isDesktop ? "420px" : "none")};
   height: 52px;
   padding: 0 20px !important;
   position: fixed;
@@ -126,9 +127,11 @@ const Container = styled.header<{ $isDetailPage: boolean }>`
   overflow: hidden;
 
   .logo {
-    margin-left: 8px;
     color: ${(props) =>
       props.$isDetailPage ? "rgba(0, 0, 0, 1)" : "rgba(255, 255, 255, 1)"};
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: 20px;
   }
 `;
 

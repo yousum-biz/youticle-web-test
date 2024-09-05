@@ -21,7 +21,7 @@ const CountdownTimer = ({ scrollRef }: CountdownTimerProps) => {
 
   return (
     <>
-      <TimeWarning>이 시간이 지나면 읽을 수 없습니다.</TimeWarning>
+      <TimeWarning>다음 업데이트까지 남은 시간</TimeWarning>
       <Time ref={scrollRef} timeLeft={timeLeft} />
     </>
   );
@@ -42,7 +42,16 @@ interface TimeProps {
 }
 
 const Time = forwardRef<HTMLSpanElement, TimeProps>(({ timeLeft }, ref) => (
-  <StyledTime ref={ref}>{timeLeft}</StyledTime>
+  <>
+    <Container>
+      <StyledTime ref={ref}>{timeLeft}</StyledTime>
+      <Tip>
+        (단, <span>주식 주제</span>는 <span>오후 6시에 중간 갱신</span>되어{" "}
+        <br></br>
+        <span>국내 증시 소식</span>을 <span>업데이트</span>합니다.)
+      </Tip>
+    </Container>
+  </>
 ));
 
 Time.displayName = "Time"; // 추가된 부분
@@ -53,5 +62,20 @@ const StyledTime = styled.span`
   line-height: 16px;
   text-align: left;
   padding-bottom: 20px;
+  width: 140px;
+`;
+
+const Tip = styled.div`
+  font-size: 12px;
+  margin-left: 12px;
+  line-height: 130%;
+  span {
+    background: #fde68a;
+    font-weight: 700;
+  }
+`;
+
+const Container = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 1);
+  display: flex;
 `;
