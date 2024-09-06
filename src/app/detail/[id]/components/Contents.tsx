@@ -20,6 +20,7 @@ const Contents = ({
   handleTocItemClick,
 }: ContentsProps) => {
   const user = useRecoilValue(userState);
+
   const [tocItemHeight, setTocItemHeight] = useState(0);
   const tocItemsRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,13 +28,23 @@ const Contents = ({
     (_, index) => index >= 3 && user.name === ""
   );
 
+  // 서버 렌더링 타임에 넘어온 props를 client에서 초기화시켜서 사용해야 hydrate 에러가 안남
+  const [clientData, setClientData] = useState<DataProps>();
+  const [clientThumbnails, setClientThumbnails] = useState<string[]>([]);
+
   useEffect(() => {
+    setClientData(detailData);
+    setClientThumbnails(thumbnails);
     const calculateHeight = () => {
-      if (tocItemsRef.current)
+      if (tocItemsRef.current) {
         setTocItemHeight(tocItemsRef.current.clientHeight);
+      }
     };
 
-    calculateHeight();
+    // DOM을 클라이언트에서만 조작
+    if (typeof window !== "undefined") {
+      calculateHeight();
+    }
   }, [tocItemsRef, detailData, thumbnails]);
 
   return (
@@ -65,7 +76,7 @@ const Contents = ({
                 title={title}
                 start={Math.floor(Number(start_time))}
                 summary={detail_contents}
-                thumbnails={thumbnails[index]}
+                thumbnails={clientThumbnails[index]}
                 explanation_keyword={explanation_keyword}
                 explanation_description={explanation_description}
                 dimmed={index >= 3 && user.name === ""}

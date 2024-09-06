@@ -9,35 +9,22 @@ import Contents from "./Contents";
 import { DataProps } from "@/types/dataProps";
 import { formatSummary } from "@/utils/formatter";
 import { playerState } from "@/store/player";
+import { base64ToBlobUrl } from "@/utils/base64";
 import { isDesktop } from "react-device-detect";
 
 interface ClientSideProps {
   id: string;
   detailData: DataProps;
-  thumbnails: string[]; // base64 문자열 배열
 }
 
-// 클라이언트에서 base64 데이터를 Blob URL로 변환하는 함수
-const base64ToBlobUrl = (base64: string): string => {
-  const mimeType = "image/png";
-  const byteCharacters = atob(base64);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  const blob = new Blob([byteArray], { type: mimeType });
-  return URL.createObjectURL(blob);
-};
-
-const ClientSide = ({ id, detailData, thumbnails }: ClientSideProps) => {
+const ClientSide = ({ id, detailData }: ClientSideProps) => {
   const [videoPlayer, setVideoPlayer] = useState<any>(null);
   const [isFixed, setIsFixed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isPlayerVisible = useRecoilValue(playerState);
   const scrollRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const [blobUrls, setBlobUrls] = useState<string[]>([]);
+  const [thumbnails, setThumbnails] = useState<string[]>([]);
 
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
     setVideoPlayer(event.target);
@@ -84,15 +71,33 @@ const ClientSide = ({ id, detailData, thumbnails }: ClientSideProps) => {
     };
   }, []);
 
-  // 서버에서 전달받은 base64 문자열을 Blob URL로 변환
   useEffect(() => {
-    const convertBase64ToBlobUrls = () => {
-      const urls = thumbnails.map((base64) => base64ToBlobUrl(base64));
-      setBlobUrls(urls);
+    const fetchThumbnails = async () => {
+      try {
+        const thumbnailResponse = await fetch(
+          `https://claying.shop/briefing/capture_frames/${id}`,
+          { cache: "no-store" }
+        );
+        if (!thumbnailResponse.ok)
+          throw new Error("Failed to fetch thumbnails");
+
+        const thumbnailData = await thumbnailResponse.json();
+        const sortedThumbnails = thumbnailData
+          .sort((a: any, b: any) => {
+            const numA = parseInt(a.filename.match(/\d+/)?.[0] || "0", 10);
+            const numB = parseInt(b.filename.match(/\d+/)?.[0] || "0", 10);
+            return numA - numB;
+          })
+          .map(({ content }: any) => base64ToBlobUrl(content));
+
+        setThumbnails(sortedThumbnails);
+      } catch (error) {
+        console.error("Error fetching thumbnails:", error);
+      }
     };
 
-    convertBase64ToBlobUrls();
-  }, [thumbnails]);
+    fetchThumbnails();
+  }, [id]);
 
   return (
     <Container $isFixed={isFixed}>
@@ -145,7 +150,7 @@ const ClientSide = ({ id, detailData, thumbnails }: ClientSideProps) => {
       </TOC>
       <Contents
         detailData={detailData}
-        thumbnails={blobUrls} // Blob URL을 사용하여 Contents 컴포넌트에 전달
+        thumbnails={thumbnails}
         handleTocItemClick={handleTocItemClick}
       />
     </Container>
