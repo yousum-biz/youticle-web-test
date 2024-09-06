@@ -33,7 +33,7 @@ const GoogleLogin: React.FC<GoogleLoginProps> = ({ variant, text }) => {
     <StyledComponent
       as={variant === "link" ? "a" : "button"}
       onClick={signInGoogle}
-      variant={variant}
+      $variant={variant}
     >
       {text}
     </StyledComponent>
@@ -43,15 +43,15 @@ const GoogleLogin: React.FC<GoogleLoginProps> = ({ variant, text }) => {
 export default GoogleLogin;
 
 interface StyledComponentProps {
-  variant: "button" | "link";
+  $variant: "button" | "link";
 }
 
 const StyledComponent = styled.div<StyledComponentProps>`
   font-family: "Pretendard Variable";
   font-weight: 700;
 
-  ${({ variant }) =>
-    variant === "button"
+  ${({ $variant }) =>
+    $variant === "button"
       ? css`
           width: calc(100% - 40px);
           height: 60px;

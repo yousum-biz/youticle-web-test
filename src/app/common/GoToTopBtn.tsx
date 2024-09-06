@@ -13,7 +13,7 @@ const GoToTopBtn = ({ isVisible }: GoToTopBtnProps) => {
   };
 
   return (
-    <Container onClick={scrollToTop} isVisible={isVisible}>
+    <Container onClick={scrollToTop} $isVisible={isVisible}>
       <ScrollTopIcon />
     </Container>
   );
@@ -21,13 +21,13 @@ const GoToTopBtn = ({ isVisible }: GoToTopBtnProps) => {
 
 export default GoToTopBtn;
 
-const Container = styled.button<{ isVisible: boolean }>`
+const Container = styled.button<{ $isVisible: boolean }>`
   width: 32px;
   height: 32px;
   position: fixed;
   bottom: 32px;
   right: 16px;
-  visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
+  visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
   background-color: rgba(0, 123, 255, 1);
   border-radius: 50%;
   border: none;

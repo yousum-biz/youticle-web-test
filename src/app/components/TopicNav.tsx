@@ -27,6 +27,12 @@ const TopicNav = ({
     YOUTUBE_TOPICS.slice(navSize * 2, YOUTUBE_TOPICS.length),
   ];
 
+  const [clientSelected, setClientSelected] = useState<string>("");
+
+  useEffect(() => {
+    setClientSelected(selectedTopic);
+  }, [selectedTopic]);
+
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
@@ -59,7 +65,7 @@ const TopicNav = ({
             <Topic
               key={topic}
               onClick={() => handleTopicClick(topic)}
-              selected={selectedTopic === topic}
+              selected={clientSelected === topic}
             >
               {icon}
               <span>{topic}</span>
@@ -126,8 +132,6 @@ const Topic = styled.div<{ selected: boolean }>`
     font-weight: 400;
     line-height: 14.32px;
     white-space: nowrap;
-    /* display: inline-block; */
     text-align: center;
-    /* width: 46px; */
   }
 `;

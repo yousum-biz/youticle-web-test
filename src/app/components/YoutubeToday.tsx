@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import TopicCard from "./TopicCard";
@@ -47,8 +49,15 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
     setTooltipVisible(!tooltipVisible);
   };
 
+  const [clientData, setClientData] = useState<DataProps[]>([]);
+
+  useEffect(() => {
+    // 클라이언트 측에서만 데이터를 세팅 (서버와 클라이언트의 데이터를 일치시키기 위해 초기 데이터 사용)
+    setClientData(data);
+  }, [data]);
+
   const filteredAndSortedData = useMemo(() => {
-    const filteredData = data.filter(
+    const filteredData = clientData.filter(
       (item) => selectedTopic === "전체" || item.section === selectedTopic
     );
     const sortedData = filteredData.sort((a, b) => {
@@ -59,7 +68,7 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
       }
     });
     return sortedData;
-  }, [data, selectedTopic, sortCriteria]);
+  }, [clientData, selectedTopic, sortCriteria]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,7 +115,7 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
         const topicIcon = YOUTUBE_TOPICS.find(
           (topic) => topic.topic === item.section
         )?.icon;
-        return <TopicCard key={index} icon={topicIcon} {...item} />;
+        return <TopicCard key={item.id} icon={topicIcon} {...item} />;
       })}
       <GoToTopBtn isVisible={isFixed} />
     </Container>

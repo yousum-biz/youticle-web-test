@@ -100,11 +100,14 @@ const Thumbnail = styled.div`
 
   .play-icon {
     position: absolute;
-    width: 40px;
-    height: 40px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  .play-icon svg {
+    width: 40px;
+    height: 40px;
   }
 `;
 
