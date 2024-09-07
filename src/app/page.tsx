@@ -6,11 +6,16 @@ import { Suspense } from "react";
 
 export default async function LandingPage() {
   // 서버사이드에서 데이터 패칭
-  const response = await axios.get(
-    "https://claying.shop/briefing/top_videos/",
-    { cache: "no-store" }
-  );
-  const apiData = response.data;
+  const response = await fetch("https://claying.shop/briefing/top_videos/", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error("API 요청 실패");
+  }
+
+  const apiData = await response.json();
 
   // 데이터를 클라이언트 컴포넌트에 전달
   return (
