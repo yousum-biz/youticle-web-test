@@ -75,8 +75,7 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
     const fetchThumbnails = async () => {
       try {
         const thumbnailResponse = await fetch(
-          `https://claying.shop/briefing/capture_frames/${id}`,
-          { cache: "no-store" }
+          `https://claying.shop/briefing/capture_frames/${id}`
         );
         if (!thumbnailResponse.ok)
           throw new Error("Failed to fetch thumbnails");

@@ -37,8 +37,7 @@ export default async function DetailPage({ params }: DetailPageProps) {
   const { id } = params;
 
   const response = await fetch(
-    `https://claying.shop/briefing/top_videos/${id}`,
-    { cache: "no-store" }
+    `https://claying.shop/briefing/top_videos/${id}`
   );
   if (!response.ok) {
     return <NotFoundPage />;
