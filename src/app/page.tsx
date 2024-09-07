@@ -6,10 +6,13 @@ import { Suspense } from "react";
 
 export default async function LandingPage() {
   // 서버사이드에서 데이터 패칭
-  const response = await fetch("https://claying.shop/briefing/top_videos/", {
-    method: "GET",
-    cache: "no-store",
-  });
+  const response = await fetch(
+    "https://claying.shop/briefing/top_videos/csv/",
+    {
+      method: "GET",
+      cache: "no-store",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("API 요청 실패");
