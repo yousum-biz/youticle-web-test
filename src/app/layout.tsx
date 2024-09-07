@@ -4,7 +4,7 @@ import "./globals.css";
 import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyles";
 import { isDesktop } from "react-device-detect";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { RecoilRoot } from "recoil";
 
@@ -13,6 +13,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isClientDesktop, setIsClientDesktop] = useState(false);
+  useEffect(() => {
+    // 클라이언트에서만 isDesktop 값을 설정
+    setIsClientDesktop(isDesktop);
+  }, []);
   return (
     <html>
       <head>
@@ -29,7 +34,7 @@ export default function RootLayout({
       </head>
       <body>
         <RecoilRoot>
-          <AppContainer $isDesktop={isDesktop}>
+          <AppContainer $isDesktop={isClientDesktop}>
             <GlobalStyle />
             <ScrollToTop />
             {children}

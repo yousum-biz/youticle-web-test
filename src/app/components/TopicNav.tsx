@@ -33,6 +33,12 @@ const TopicNav = ({
     setClientSelected(selectedTopic);
   }, [selectedTopic]);
 
+  const [isClientDesktop, setIsClientDesktop] = useState(false);
+  useEffect(() => {
+    // 클라이언트에서만 isDesktop 값을 설정
+    setIsClientDesktop(isDesktop);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
@@ -55,7 +61,7 @@ const TopicNav = ({
   return (
     <Container
       ref={containerRef}
-      $isDesktop={isDesktop}
+      $isDesktop={isClientDesktop}
       $isFixed={$isFixed}
       $hasScrolled={hasScrolled}
     >

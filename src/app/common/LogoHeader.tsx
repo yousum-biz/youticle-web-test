@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter, usePathname } from "next/navigation";
@@ -66,10 +66,14 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
       console.error("Error logging out:", e);
     }
   };
-
+  const [isClientDesktop, setIsClientDesktop] = useState(false);
+  useEffect(() => {
+    // 클라이언트에서만 isDesktop 값을 설정
+    setIsClientDesktop(isDesktop);
+  }, []);
   return (
     <>
-      <Container $isDetailPage={isDetailPage} $isDesktop={isDesktop}>
+      <Container $isDetailPage={isDetailPage} $isDesktop={isClientDesktop}>
         <PageInfo>
           {isDetailPage && <BackIcon onClick={goHome} />}
           {title === "" ? (

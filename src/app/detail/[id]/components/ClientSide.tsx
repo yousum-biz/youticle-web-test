@@ -38,6 +38,12 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
     }
   };
 
+  const [isClientDesktop, setIsClientDesktop] = useState(false);
+  useEffect(() => {
+    // 클라이언트에서만 isDesktop 값을 설정
+    setIsClientDesktop(isDesktop);
+  }, []);
+
   const handleTocItemClick = (start: number) => {
     if (!isPlayerVisible) return;
 
@@ -120,7 +126,7 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
         <VideoContainer
           ref={videoContainerRef}
           $isFixed={isFixed}
-          $isDesktop={isDesktop}
+          $isDesktop={isClientDesktop}
         >
           {isLoading && <Loader />}
           <YouTube
