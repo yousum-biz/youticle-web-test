@@ -61,7 +61,7 @@ const GoHomePage = styled.div`
 `;
 
 const GoHomePageBtn = styled.button`
-  width: calc(100vw - 40px);
+  /* width: calc(100vw - 40px); */
   height: 60px;
   border-radius: 4px;
   background-color: #007bff;

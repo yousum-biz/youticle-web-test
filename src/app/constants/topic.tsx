@@ -17,14 +17,10 @@ import TripIcon from "@/assets/trip.svg";
 import AiIcon from "@/assets/ai.svg";
 import HistoryIcon from "@/assets/history.svg";
 import BeautyIcon from "@/assets/beauty.svg";
-
+import BusinessIcon from "@/assets/business.svg";
 export const YOUTUBE_TOPICS = [
   {
     topic: "전체",
-    icon: <AllIcon />,
-  },
-  {
-    topic: "비즈니스/사업",
     icon: <AllIcon />,
   },
   {
@@ -44,16 +40,48 @@ export const YOUTUBE_TOPICS = [
     icon: <EconomyIcon />,
   },
   {
-    topic: "건강",
-    icon: <HealthIcon />,
-  },
-  {
     topic: "정치",
     icon: <EconomyIcon />,
   },
   {
-    topic: "과학",
-    icon: <ScienceIcon />,
+    topic: "역사",
+    icon: <HistoryIcon />,
+  },
+  {
+    topic: "연애/결혼",
+    icon: <MarriageIcon />,
+  },
+  {
+    topic: "건강",
+    icon: <HealthIcon />,
+  },
+  {
+    topic: "자기계발",
+    icon: <DevelopIcon />,
+  },
+  {
+    topic: "피트니스",
+    icon: <FitnessIcon />,
+  },
+  {
+    topic: "뷰티/메이크업",
+    icon: <BeautyIcon />,
+  },
+  {
+    topic: "여자 패션",
+    icon: <WomanFashionIcon />,
+  },
+  {
+    topic: "남자 패션",
+    icon: <ManFashionIcon />,
+  },
+  {
+    topic: "비즈니스/사업",
+    icon: <BusinessIcon />,
+  },
+  {
+    topic: "인공지능",
+    icon: <AiIcon />,
   },
   {
     topic: "IT/테크",
@@ -64,44 +92,16 @@ export const YOUTUBE_TOPICS = [
     icon: <CarIcon />,
   },
   {
-    topic: "자기계발",
-    icon: <DevelopIcon />,
-  },
-  {
-    topic: "요리",
-    icon: <CookIcon />,
-  },
-  {
-    topic: "연애/결혼",
-    icon: <MarriageIcon />,
-  },
-  {
-    topic: "남자 패션",
-    icon: <ManFashionIcon />,
-  },
-  {
-    topic: "여자 패션",
-    icon: <WomanFashionIcon />,
-  },
-  {
-    topic: "피트니스",
-    icon: <FitnessIcon />,
-  },
-  {
     topic: "여행",
     icon: <TripIcon />,
   },
   {
-    topic: "인공지능",
-    icon: <AiIcon />,
+    topic: "과학",
+    icon: <ScienceIcon />,
   },
   {
-    topic: "역사",
-    icon: <HistoryIcon />,
-  },
-  {
-    topic: "뷰티/메이크업",
-    icon: <BeautyIcon />,
+    topic: "요리",
+    icon: <CookIcon />,
   },
 ];
 

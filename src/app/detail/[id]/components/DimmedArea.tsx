@@ -5,7 +5,7 @@ import { TOPIC_TAGS } from "@/constants/topic";
 import InfoIcon from "@/assets/subInfo.svg";
 import GoogleLogin from "@/common/GoogleLogin";
 
-const DIMMED_TITLE = `지금 바로 무료 구독하고 <br/> ${TOPIC_TAGS.length}개의 주요 분야의 영상을 <br/> <span class='highlight'>매일 읽어보세요.</span>`;
+const DIMMED_TITLE = `지금 바로 <span class='highlight'>무료 구독</span>하고 <br/> ${TOPIC_TAGS.length}개의 주요 분야의 <span class='highlight'>영상</span>을 <br/> <span class='highlight'>매일 읽어보세요.</span>`;
 
 interface DimmedAreaProps {
   tocItemHeight: number;
@@ -40,8 +40,8 @@ const Container = styled.div<{ $height: number }>`
   height: ${({ $height }) => $height}px;
   position: absolute;
   top: -4px;
-  padding-top: ${({ $height }) => ($height - 432) / 2}px;
-  padding-bottom: ${({ $height }) => ($height - 432) / 2}px;
+  /* padding-top: ${({ $height }) => ($height - 432) / 2}px; */
+  padding-bottom: ${({ $height }) => $height - 432}px;
   background-color: rgba(255, 255, 255, 0.9);
 
   display: flex;
@@ -52,11 +52,14 @@ const Container = styled.div<{ $height: number }>`
 `;
 
 const ServiceTitle = styled.span`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
-  line-height: 30px;
+  line-height: 168%;
 
   text-align: center;
+  .highlight {
+    color: #007bff;
+  }
 `;
 
 const TopicTags = styled.div`

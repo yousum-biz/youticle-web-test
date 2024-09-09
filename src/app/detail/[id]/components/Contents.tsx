@@ -77,6 +77,7 @@ const Contents = ({
                 start={Math.floor(Number(start_time))}
                 summary={detail_contents}
                 thumbnails={clientThumbnails[index]}
+                partialDimmed={index === 2 && user.name === ""}
                 explanation_keyword={explanation_keyword}
                 explanation_description={explanation_description}
                 dimmed={index >= 3 && user.name === ""}
@@ -111,5 +112,6 @@ const RecommendWrapper = styled.div<{
   $hasDimmedItem: boolean;
   $tocItemHeight: number;
 }>`
-  margin-top: ${(props) => (props.$hasDimmedItem ? `0px` : "60px")};
+  margin-top: ${(props) => (props.$hasDimmedItem ? `-120px` : "0px")};
+  z-index: ${(props) => (props.$hasDimmedItem ? `1000` : "0")};
 `;

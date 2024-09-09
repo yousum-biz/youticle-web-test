@@ -97,7 +97,7 @@ const IconWrapper = styled.div`
     font-family: var(--font-Pretendard);
     font-size: 12px;
     font-weight: 500;
-    line-height: 18px;
+    line-height: 12px;
     text-align: center;
     width: 46px;
   }

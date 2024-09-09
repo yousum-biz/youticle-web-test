@@ -106,7 +106,7 @@ const Container = styled.div<{
 
   position: ${(props) => (props.$isFixed ? "fixed" : "static")};
   top: ${(props) => (props.$isFixed ? "52px" : "auto")};
-  z-index: ${(props) => (props.$isFixed ? 10000 : 0)};
+  /* z-index: ${(props) => (props.$isFixed ? 0 : 0)}; */
 
   overflow-x: scroll;
   ::-webkit-scrollbar {

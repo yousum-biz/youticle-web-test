@@ -5,9 +5,9 @@ import styled from "styled-components";
 import InfoIcon from "@/assets/info.svg";
 
 const TOOLTIP_OPTION1 =
-  "조회수 대비 참여도(좋아요, 댓글 수 등)가 높은 순으로 오늘 업로드된 최대 3개의 영상이 각 주제 별로 노출됩니다.";
+  "조회수 대비 참여도(좋아요, 댓글 수 등)가 높은 순으로 오늘 업로드된 최대 6개의 영상이 각 주제 별로 노출됩니다.";
 const TOOLTIP_OPTION2 =
-  "조회수가 높은 순으로 오늘 업로드된 최대 3개의 영상이 각 주제 별로 노출됩니다.";
+  "조회수가 높은 순으로 오늘 업로드된 최대 6개의 영상이 각 주제 별로 노출됩니다.";
 
 interface SortOptionsProps {
   isFixed?: boolean;
