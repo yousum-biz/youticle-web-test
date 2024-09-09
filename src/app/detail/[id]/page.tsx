@@ -22,10 +22,12 @@ export async function generateMetadata({
   const detailData = data[0];
 
   return {
-    title: detailData?.title || "Detail Page",
+    title:
+      detailData?.headline_title + ", " + detailData?.headline_subtitle ||
+      "Detail Page",
     description: detailData?.short_summary || "Description",
     openGraph: {
-      title: detailData?.title,
+      title: detailData?.headline_title + ", " + detailData?.headline_subtitle,
       description: detailData?.short_summary,
       images: [{ url: detailData?.thumbnail }],
     },

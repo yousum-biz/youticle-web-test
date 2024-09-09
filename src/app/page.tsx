@@ -18,6 +18,9 @@ export const metadata = {
         alt: "Thumbnail Image",
       },
     ],
+    icons: {
+      icon: "/images/favicon.png", // favicon 경로
+    },
   },
 };
 
