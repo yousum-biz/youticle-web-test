@@ -19,7 +19,7 @@ export const metadata = {
       },
     ],
     icons: {
-      icon: "/images/favicon.png", // favicon 경로
+      icon: "/favicon.png", // favicon 경로
     },
   },
 };

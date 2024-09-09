@@ -37,7 +37,7 @@ const DimmedArea = ({ tocItemHeight }: DimmedAreaProps) => {
 export default DimmedArea;
 
 const Container = styled.div<{ $height: number }>`
-  height: ${({ $height }) => $height}px;
+  height: ${({ $height }) => $height + 20}px;
   position: absolute;
   top: -4px;
   /* padding-top: ${({ $height }) => ($height - 432) / 2}px; */
