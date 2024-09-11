@@ -13,12 +13,11 @@ interface RecommendCardProps extends DataProps {
 const RecommendCard = (props: RecommendCardProps) => {
   const router = useRouter();
   const setTopicState = useSetRecoilState(detailDataState);
-  const { id, headline_title, headline_subtitle, thumbnail, upload_date } =
-    props;
+  const { video_id, summary_data, thumbnail, upload_date } = props;
 
   const handleNavigate = () => {
     setTopicState(props);
-    router.push(`/detail/${id}`);
+    router.push(`/detail/${video_id}`);
   };
 
   return (
@@ -26,7 +25,8 @@ const RecommendCard = (props: RecommendCardProps) => {
       <Thumbnail src={thumbnail} />
       <Info>
         <Title>
-          {headline_title}, <br /> {headline_subtitle}
+          {summary_data.headline_title}, <br />{" "}
+          {summary_data.headline_sub_title}
         </Title>
         <UploadTime>{upload_date.slice(0, -3)}</UploadTime>
       </Info>

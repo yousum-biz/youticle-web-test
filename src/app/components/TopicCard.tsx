@@ -13,24 +13,21 @@ interface TopicCardProps extends DataProps {
 
 const TopicCard = (props: TopicCardProps) => {
   const router = useRouter();
+  console.log(props);
   const setTopicState = useSetRecoilState(detailDataState);
   const {
     section,
-    headline_title,
-    headline_subtitle,
-    short_summary,
+    summary_data, // 새로운 summary_data 객체
     thumbnail,
     upload_date,
-    channel_thumbnail,
-    channel_name,
-    channel_subscribers,
+    channel_details, // 새로운 channel_details 객체
     icon,
-    id,
+    video_id,
   } = props;
 
   const handleNavigate = () => {
     setTopicState(props);
-    router.push(`/detail/${id}`);
+    router.push(`/detail/${video_id}`);
   };
 
   return (
@@ -47,19 +44,22 @@ const TopicCard = (props: TopicCardProps) => {
           )}
         </IconWrapper>
         <Title>
-          {headline_title}, <br /> {headline_subtitle}
+          {summary_data.headline_title}, <br />{" "}
+          {summary_data.headline_sub_title}
         </Title>
       </CardHeader>
       <Summary>
-        <p>{short_summary}</p>
+        <p>{summary_data.short_summary}</p>
       </Summary>
       <Thumbnail src={thumbnail} />
       <UploadTime>{upload_date.slice(0, -3)} 영상 업로드</UploadTime>
       <ChannelInfo>
-        <ProfileImage src={channel_thumbnail}></ProfileImage>
+        <ProfileImage src={channel_details.channel_thumbnail}></ProfileImage>
         <ProfileInfo>
-          <Name>{channel_name}</Name>
-          <Subscriber>{parseSubscribersCount(channel_subscribers)}</Subscriber>
+          <Name>{channel_details.channel_name}</Name>
+          <Subscriber>
+            {parseSubscribersCount(channel_details.channel_subscribers)}
+          </Subscriber>
         </ProfileInfo>
       </ChannelInfo>
     </Container>

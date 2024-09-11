@@ -32,7 +32,9 @@ const Recommend = ({ detailData }: RecommendProps) => {
 
   const filteredAndSortedData = useMemo(() => {
     const filteredData = apiData.filter(
-      (item) => item.section === detailData.section && item.id !== detailData.id
+      (item) =>
+        item.section === detailData.section &&
+        item.video_id !== detailData.video_id
     );
     const sortedData = filteredData.sort((a, b) => {
       if (sortCriteria === "engagement") {

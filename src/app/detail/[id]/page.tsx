@@ -23,12 +23,16 @@ export async function generateMetadata({
 
   return {
     title:
-      detailData?.headline_title + ", " + detailData?.headline_subtitle ||
-      "Detail Page",
-    description: detailData?.short_summary || "Description",
+      detailData?.summary_data.headline_title +
+        ", " +
+        detailData?.summary_data.headline_subtitle || "Detail Page",
+    description: detailData?.summary_data.short_summary || "Description",
     openGraph: {
-      title: detailData?.headline_title + ", " + detailData?.headline_subtitle,
-      description: detailData?.short_summary,
+      title:
+        detailData?.summary_data.headline_title +
+        ", " +
+        detailData?.summary_data.headline_subtitle,
+      description: detailData?.summary_data.short_summary,
       images: [{ url: detailData?.thumbnail }],
     },
   };

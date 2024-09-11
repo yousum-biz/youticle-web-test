@@ -109,16 +109,16 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
       <LogoHeader
         title={
           isFixed
-            ? `${detailData.headline_title}, ${detailData.headline_subtitle}`
+            ? `${detailData.summary_data.headline_title}, ${detailData.summary_data.headline_sub_title}`
             : ""
         }
       />
       <PageInfo ref={scrollRef}>
         <Category>{detailData.section}</Category>
         <Title>
-          {detailData.headline_title},
+          {detailData.summary_data.headline_title},
           <br />
-          {detailData.headline_subtitle}
+          {detailData.summary_data.headline_sub_title}
         </Title>
         <Upload>{detailData.upload_date} 업로드</Upload>
       </PageInfo>
@@ -130,7 +130,7 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
         >
           {isLoading && <Loader />}
           <YouTube
-            videoId={detailData.id}
+            videoId={detailData.video_id}
             opts={opts}
             onReady={onPlayerReady}
             onStateChange={onPlayerStateChange}
@@ -142,13 +142,13 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
       <Preview $isFixed={isFixed}>
         <div>
           <span>🔎 미리보기</span>
-          {formatSummary(detailData.short_summary)}
+          {formatSummary(detailData.summary_data.short_summary)}
         </div>
       </Preview>
       <TOC>
         <div>목차</div>
         <div>
-          {detailData.template_summary.map(({ title }, index) => (
+          {detailData.summary_data.section.map(({ title }, index) => (
             <span key={index}>{title} </span>
           ))}
         </div>

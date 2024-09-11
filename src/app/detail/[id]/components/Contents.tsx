@@ -24,7 +24,7 @@ const Contents = ({
   const [tocItemHeight, setTocItemHeight] = useState(0);
   const tocItemsRef = useRef<HTMLDivElement | null>(null);
 
-  const hasDimmedItem = detailData.template_summary.some(
+  const hasDimmedItem = detailData.summary_data.section.some(
     (_, index) => index >= 3 && user.name === ""
   );
 
@@ -50,8 +50,11 @@ const Contents = ({
   return (
     <>
       <ContentWrapper>
-        {detailData.template_summary
-          .slice(0, user.name === "" ? 4 : detailData.template_summary.length)
+        {detailData.summary_data.section
+          .slice(
+            0,
+            user.name === "" ? 4 : detailData.summary_data.section.length
+          )
           .map(
             (
               {
@@ -69,7 +72,7 @@ const Contents = ({
                   index ===
                   (user.name === ""
                     ? 3
-                    : detailData.template_summary.length - 1)
+                    : detailData.summary_data.section.length - 1)
                     ? tocItemsRef
                     : null
                 }
