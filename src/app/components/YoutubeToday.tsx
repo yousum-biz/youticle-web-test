@@ -62,9 +62,9 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
     );
     const sortedData = filteredData.sort((a, b) => {
       if (sortCriteria === "engagement") {
-        return b.engagement_score - a.engagement_score;
+        return b.score - a.score;
       } else {
-        return b.views - a.views;
+        return b.views + b.likes * 10 - a.views + a.likes * 10;
       }
     });
     return sortedData;
@@ -115,7 +115,7 @@ const YoutubeToday = ({ data }: YoutubeTodayProps) => {
         const topicIcon = YOUTUBE_TOPICS.find(
           (topic) => topic.topic === item.section
         )?.icon;
-        return <TopicCard key={item.id} icon={topicIcon} {...item} />;
+        return <TopicCard key={item.video_id} icon={topicIcon} {...item} />;
       })}
       <GoToTopBtn isVisible={isFixed} />
     </Container>
