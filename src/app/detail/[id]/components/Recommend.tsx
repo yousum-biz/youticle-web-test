@@ -1,9 +1,9 @@
 "use client"; // Ensure this is a client component
 
 import styled from "styled-components";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { DataProps } from "@/types/dataProps";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { dataState } from "@/store/data";
 import { YOUTUBE_TOPICS } from "@/constants/topic";
 import RecommendCard from "./RecommendCard";
@@ -18,8 +18,36 @@ const Recommend = ({ detailData }: RecommendProps) => {
   const RECOMMEND_TITLE = `👇 다음&nbsp;<span class='highlight'>${detailData.section}</span>&nbsp;유튜브 아티클 확인하기`;
   const [sortCriteria, setSortCriteria] = useState("engagement");
   const [tooltipVisible, setTooltipVisible] = useState(false);
-
+  const setApiData = useSetRecoilState(dataState);
   const apiData = useRecoilValue<DataProps[]>(dataState);
+  console.log("recoil", apiData);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        // 서버사이드에서 데이터 패칭
+        const response = await fetch(
+          "https://claying.shop/briefing/top_videos/",
+          {
+            method: "GET",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("API 요청 실패");
+        }
+
+        const apiData = await response.json();
+        setApiData(apiData);
+      } catch (error) {
+        console.error("Error fetching top videos:", error);
+      }
+    };
+    if (apiData.length === 0) {
+      console.log("from server");
+      getData();
+    }
+  }, [setApiData]);
 
   const handleSortClick = (criteria: string) => {
     setSortCriteria(criteria);
