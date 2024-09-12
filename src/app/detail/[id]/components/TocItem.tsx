@@ -35,8 +35,6 @@ const TocItem = forwardRef<HTMLDivElement, TocItemProps>(
     },
     ref
   ) => {
-    console.log("설명", explanation_keyword, explanation_description);
-
     return (
       <Container ref={ref}>
         <ContentWrapper $dimmed={dimmed} $partialDimmed={partialDimmed}>

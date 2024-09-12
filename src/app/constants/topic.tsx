@@ -18,6 +18,7 @@ import AiIcon from "@/assets/ai.svg";
 import HistoryIcon from "@/assets/history.svg";
 import BeautyIcon from "@/assets/beauty.svg";
 import BusinessIcon from "@/assets/business.svg";
+import PoliticsIcons from "@/assets/politics.svg";
 export const YOUTUBE_TOPICS = [
   {
     topic: "전체",
@@ -41,7 +42,7 @@ export const YOUTUBE_TOPICS = [
   },
   {
     topic: "정치",
-    icon: <EconomyIcon />,
+    icon: <PoliticsIcons />,
   },
   {
     topic: "역사",
