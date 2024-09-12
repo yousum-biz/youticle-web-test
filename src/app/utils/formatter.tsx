@@ -66,17 +66,15 @@ export const formatSummary = (summary: string) => {
     .split(regex)
     .filter((sentence) => sentence.trim() !== "")
     .map((sentence, index, array) => {
-      const parts = sentence
-        .split(/(<mark>.*?<\/mark>)/g)
-        .map((part, i) =>
-          part.startsWith("<mark>") ? (
-            <b style={{ fontWeight: "bold" }}>
-              {part.replace(/<\/?mark>/g, "")}
-            </b>
-          ) : (
-            part
-          )
-        );
+      const parts = sentence.split(/(<mark>.*?<\/mark>)/g).map((part, i) =>
+        part.startsWith("<mark>") ? (
+          <b style={{ fontWeight: "bold" }} key={i}>
+            {part.replace(/<\/?mark>/g, "")}
+          </b>
+        ) : (
+          part
+        )
+      );
 
       return (
         <span key={index} className="line-break">
