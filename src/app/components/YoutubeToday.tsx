@@ -127,7 +127,7 @@ export default YoutubeToday;
 const Container = styled.div`
   width: 100%;
   background-color: rgba(242, 242, 242, 1);
-  padding: 25px 20px;
+  padding: 24px 12px;
   display: flex;
   flex-direction: column;
   margin-top: 36px;

@@ -5,7 +5,11 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { detailDataState } from "@/store/detailData";
 import { DataProps } from "@/types/dataProps";
-import { parseSubscribersCount } from "@/utils/formatter";
+import {
+  parseSubscribersCount,
+  timeSinceUpload,
+  removeMarkTags,
+} from "@/utils/formatter";
 
 interface TopicCardProps extends DataProps {
   icon: React.ReactNode;
@@ -13,7 +17,6 @@ interface TopicCardProps extends DataProps {
 
 const TopicCard = (props: TopicCardProps) => {
   const router = useRouter();
-  console.log(props);
   const setTopicState = useSetRecoilState(detailDataState);
   const {
     section,
@@ -29,11 +32,12 @@ const TopicCard = (props: TopicCardProps) => {
     setTopicState(props);
     router.push(`/detail/${video_id}`);
   };
-
+  const short_summary = removeMarkTags(summary_data.short_summary);
+  console.log(short_summary);
   return (
     <Container onClick={handleNavigate}>
       <CardHeader>
-        <IconWrapper>
+        {/* <IconWrapper>
           <IconBox>{icon}</IconBox>
           {section === "뷰티/메이크업" ? (
             <span>
@@ -42,24 +46,28 @@ const TopicCard = (props: TopicCardProps) => {
           ) : (
             <span>{section}</span>
           )}
-        </IconWrapper>
+        </IconWrapper> */}
+        <Section>#{section}</Section>
         <Title>
-          {summary_data.headline_title}, <br />{" "}
-          {summary_data.headline_sub_title}
+          {summary_data.headline_title}, {summary_data.headline_sub_title}
         </Title>
       </CardHeader>
-      <Summary>
-        <p>{summary_data.short_summary}</p>
-      </Summary>
-      <Thumbnail src={thumbnail} />
-      <UploadTime>{upload_date.slice(0, -3)} 영상 업로드</UploadTime>
+      <Body>
+        <Summary>
+          <p>{short_summary}</p>
+        </Summary>
+        <Thumbnail src={thumbnail} />
+      </Body>
       <ChannelInfo>
         <ProfileImage src={channel_details.channel_thumbnail}></ProfileImage>
         <ProfileInfo>
           <Name>{channel_details.channel_name}</Name>
-          <Subscriber>
-            {parseSubscribersCount(channel_details.channel_subscribers)}
-          </Subscriber>
+          <SubsUpload>
+            <Subscriber>
+              {parseSubscribersCount(channel_details.channel_subscribers)}
+            </Subscriber>
+            <UploadTime> {timeSinceUpload(upload_date)}</UploadTime>
+          </SubsUpload>
         </ProfileInfo>
       </ChannelInfo>
     </Container>
@@ -72,18 +80,29 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 24px 22px 18px 22px;
+  padding: 20px 12px 20px 12px;
   gap: 10px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 1);
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 `;
 
 const CardHeader = styled.div`
   display: flex;
-  gap: 14px;
+  flex-direction: column;
+  gap: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid black;
+`;
+
+const SubsUpload = styled.div`
+  display: flex;
+`;
+
+const Section = styled.div`
+  font-size: 16px;
+  font-style: italic;
+  color: #30d5c8;
+  font-weight: 700;
 `;
 
 const IconWrapper = styled.div`
@@ -103,6 +122,10 @@ const IconWrapper = styled.div`
   }
 `;
 
+const Body = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const IconBox = styled.div`
   display: flex;
   justify-content: center;
@@ -120,19 +143,17 @@ const Title = styled.span`
 `;
 
 const Summary = styled.div`
-  padding: 4px;
   border-radius: 4px;
-
+  margin-right: 12px;
   p {
-    height: 54px;
     font-size: 16px;
     font-weight: 400;
-    line-height: 168%;
-    color: rgb(119 121 123);
+    line-height: 140%;
+    color: rgb(60 60 61);
     display: -webkit-box;
     word-break: break-word;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
@@ -143,14 +164,15 @@ const Summary = styled.div`
 const Thumbnail = styled.img`
   object-fit: cover;
   border-radius: 4px;
-  width: 100%;
-  aspect-ratio: 306 / 172;
+  width: 42%;
+  aspect-ratio: 132 / 72;
 `;
 
 const UploadTime = styled.span`
   font-size: 14px;
   font-weight: 400;
   line-height: 16.8px;
+  color: #696868;
 `;
 
 const ChannelInfo = styled.div`
@@ -158,6 +180,7 @@ const ChannelInfo = styled.div`
   align-items: center;
   gap: 9px;
   height: 36px;
+  margin-top: 12px;
 `;
 
 const ProfileImage = styled.img`
@@ -178,7 +201,9 @@ const Name = styled.span`
 `;
 
 const Subscriber = styled.span`
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 16.8px;
-  color: rgba(158, 158, 158, 1);
+  color: #696868;
+  margin-right: 8px;
 `;

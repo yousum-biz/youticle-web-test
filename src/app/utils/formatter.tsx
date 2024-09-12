@@ -66,17 +66,17 @@ export const formatSummary = (summary: string) => {
     .split(regex)
     .filter((sentence) => sentence.trim() !== "")
     .map((sentence, index, array) => {
-      const parts = sentence.split(/(<mark>.*?<\/mark>)/g).map((part, i) =>
-        part.startsWith("<mark>") ? (
-          <mark key={i}>
+      const parts = sentence
+        .split(/(<mark>.*?<\/mark>)/g)
+        .map((part, i) =>
+          part.startsWith("<mark>") ? (
             <b style={{ fontWeight: "bold" }}>
               {part.replace(/<\/?mark>/g, "")}
             </b>
-          </mark>
-        ) : (
-          part
-        )
-      );
+          ) : (
+            part
+          )
+        );
 
       return (
         <span key={index} className="line-break">
@@ -85,4 +85,31 @@ export const formatSummary = (summary: string) => {
         </span>
       );
     });
+};
+
+export const timeSinceUpload = (uploadTime: string) => {
+  // 현재 시각 가져오기
+  const now = new Date();
+
+  // 업로드 시간 파싱 (ISO 형식)
+  const uploadDate = new Date(uploadTime);
+
+  // 시간 차이 계산 (밀리초 단위)
+  const timeDifference = now.getTime() - uploadDate.getTime();
+
+  // 밀리초를 시간 단위로 변환
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+
+  // 24시간 이상이면 일 단위로, 아니면 시간 단위로 출력
+  if (hoursDifference >= 24) {
+    const daysDifference = Math.floor(hoursDifference / 24);
+    return `${daysDifference}일 전`;
+  } else {
+    return `${hoursDifference}시간 전`;
+  }
+};
+
+export const removeMarkTags = (text: string): string => {
+  // 정규식을 사용하여 <mark></mark> 태그를 삭제
+  return text.replace(/<mark[^>]*>/g, "").replace(/<\/mark>/g, "");
 };

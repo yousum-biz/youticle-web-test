@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import LogoHeader from "@/common/LogoHeader";
 import Contents from "./Contents";
 import { DataProps } from "@/types/dataProps";
-import { formatSummary } from "@/utils/formatter";
+import { formatSummary, removeMarkTags } from "@/utils/formatter";
 import { playerState } from "@/store/player";
 import { base64ToBlobUrl } from "@/utils/base64";
 import { isDesktop } from "react-device-detect";
@@ -76,7 +76,6 @@ const ClientSide = ({ id, detailData }: ClientSideProps) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
   useEffect(() => {
     const fetchThumbnails = async () => {
       try {

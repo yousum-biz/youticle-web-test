@@ -19,7 +19,6 @@ interface TocItemProps {
   dimmed: boolean;
   onClick: () => void;
 }
-
 const TocItem = forwardRef<HTMLDivElement, TocItemProps>(
   (
     {
@@ -36,6 +35,8 @@ const TocItem = forwardRef<HTMLDivElement, TocItemProps>(
     },
     ref
   ) => {
+    console.log("설명", explanation_keyword, explanation_description);
+
     return (
       <Container ref={ref}>
         <ContentWrapper $dimmed={dimmed} $partialDimmed={partialDimmed}>
@@ -50,10 +51,15 @@ const TocItem = forwardRef<HTMLDivElement, TocItemProps>(
           </Timeline>
           <Summary>
             {formatSummary(summary)}
-            <TipArea>
-              💡 <Tip>{explanation_keyword}</Tip>
-            </TipArea>
-            <TipAreaDescription>{explanation_description}</TipAreaDescription>
+            {explanation_keyword ? (
+              <TipArea>
+                💡 <Tip>{explanation_keyword}</Tip>
+              </TipArea>
+            ) : null}
+
+            {explanation_description && (
+              <TipAreaDescription>{explanation_description}</TipAreaDescription>
+            )}
           </Summary>
         </ContentWrapper>
         {dimmed && <DimmedArea tocItemHeight={tocItemHeight} />}

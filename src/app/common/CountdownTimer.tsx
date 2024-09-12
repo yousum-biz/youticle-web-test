@@ -22,6 +22,11 @@ const CountdownTimer = ({ scrollRef }: CountdownTimerProps) => {
   return (
     <>
       <TimeWarning>다음 업데이트까지 남은 시간</TimeWarning>
+      {/* <Tip>
+        (단, <span>주식 주제</span>는 <span>오후 6시</span>에
+        <span>중간 갱신</span>되어 <span>국내 증시 소식</span>을
+        <span>업데이트</span>합니다.)
+      </Tip> */}
       <Time ref={scrollRef} timeLeft={timeLeft} />
     </>
   );
@@ -31,7 +36,7 @@ CountdownTimer.displayName = "CountdownTimer";
 export default CountdownTimer;
 
 const TimeWarning = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 16.71px;
   margin-bottom: 20px;
@@ -45,11 +50,6 @@ const Time = forwardRef<HTMLSpanElement, TimeProps>(({ timeLeft }, ref) => (
   <>
     <Container>
       <StyledTime ref={ref}>{timeLeft}</StyledTime>
-      <Tip>
-        (단, <span>주식 주제</span>는 <span>오후 6시</span>에{" "}
-        <span>중간 갱신</span>되어 <span>국내 증시 소식</span>을{" "}
-        <span>업데이트</span>합니다.)
-      </Tip>
     </Container>
   </>
 ));
@@ -61,20 +61,15 @@ const StyledTime = styled.span`
   font-weight: 500;
   line-height: 16px;
   text-align: left;
-  padding-bottom: 20px;
+  padding-bottom: 12px;
   min-width: 128px;
   max-width: 128px;
 `;
 
 const Tip = styled.div`
   font-size: 12px;
-  margin-left: 12px;
   line-height: 136%;
-  max-width: 200px;
-  min-width: 192px;
-  margin-top: -4px;
   span {
-    background: #fde68a;
     font-weight: 700;
   }
 `;
