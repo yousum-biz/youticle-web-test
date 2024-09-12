@@ -25,13 +25,13 @@ export async function generateMetadata({
     title:
       detailData?.summary_data.headline_title +
         ", " +
-        detailData?.summary_data.headline_subtitle || "Detail Page",
+        detailData?.summary_data.headline_sub_title || "Detail Page",
     description: detailData?.summary_data.short_summary || "Description",
     openGraph: {
       title:
         detailData?.summary_data.headline_title +
         ", " +
-        detailData?.summary_data.headline_subtitle,
+        detailData?.summary_data.headline_sub_title,
       description: detailData?.summary_data.short_summary,
       images: [{ url: detailData?.thumbnail }],
     },
