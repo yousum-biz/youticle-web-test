@@ -85,6 +85,7 @@ const Contents = ({
                 explanation_description={explanation_description}
                 dimmed={index >= 3 && user.name === ""}
                 tocItemHeight={tocItemHeight}
+                toc={detailData.summary_data.section}
                 onClick={() =>
                   handleTocItemClick(Math.floor(Number(start_time)))
                 }
@@ -115,6 +116,6 @@ const RecommendWrapper = styled.div<{
   $hasDimmedItem: boolean;
   $tocItemHeight: number;
 }>`
-  margin-top: ${(props) => (props.$hasDimmedItem ? `-40px` : "100px")};
+  margin-top: ${(props) => (props.$hasDimmedItem ? `120px` : "100px")};
   z-index: ${(props) => (props.$hasDimmedItem ? `500` : "0")};
 `;

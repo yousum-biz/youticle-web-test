@@ -55,6 +55,7 @@ const StyledComponent = styled.div<StyledComponentProps>`
       ? css`
           width: calc(100% - 40px);
           height: 60px;
+          padding: 20px 0;
           border-radius: 4px;
           background-color: #007bff;
           font-size: 16px;
@@ -70,9 +71,10 @@ const StyledComponent = styled.div<StyledComponentProps>`
           border: none;
           border-bottom: 1px solid rgba(0, 123, 255, 1);
           background-color: white;
-          font-size: 13px;
+          font-size: 16px;
           line-height: 15.51px;
           color: rgba(0, 123, 255, 1);
           cursor: pointer;
+          margin-top: 4px;
         `}
 `;
