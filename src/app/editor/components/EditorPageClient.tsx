@@ -47,6 +47,13 @@ export default function EditorPageClient({ apiData }: EditorPageClientProps) {
       });
     }
   };
+
+  // article_date를 기준으로 오름차순 정렬
+  const sortedApiData = [...apiData].sort((a, b) => {
+    return (
+      new Date(b.article_date).getTime() - new Date(a.article_date).getTime()
+    );
+  });
   return (
     <Container>
       <LogoHeader />
@@ -72,7 +79,7 @@ export default function EditorPageClient({ apiData }: EditorPageClientProps) {
         </EditorInfoTitleContainer>
       </EditorInfoContainer>
       <EditorContainer>
-        {apiData.map((item, index) => {
+        {sortedApiData.map((item, index) => {
           const topicIcon = EDITOR_YOUTUBE_TOPICS.find(
             (topic) => topic.topic === item.section
           )?.icon;
