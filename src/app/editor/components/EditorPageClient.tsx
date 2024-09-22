@@ -87,11 +87,11 @@ export default function EditorPageClient({ apiData }: EditorPageClientProps) {
   );
 }
 
-const Container = styled.div<{ $isLogin: boolean }>`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   font-family: "Pretendard Variable";
-  padding-top: ${(props) => (props.$isLogin ? "16px" : "76px")};
+  padding-top: 76px;
   background-color: rgba(242, 242, 242, 1);
   height: 100vh;
   &::-webkit-scrollbar {
