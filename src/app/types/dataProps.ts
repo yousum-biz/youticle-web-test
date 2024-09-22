@@ -14,6 +14,23 @@ export interface DataProps {
   channel_details: ChannelDetails;
 }
 
+export interface EditorDataProps {
+  video_id: string;
+  title: string;
+  section: string;
+  duration: string;
+  upload_date: string;
+  thumbnail: string;
+  views: number;
+  likes: number;
+  comments: number;
+  subscribers: number;
+  article_date: string;
+  score: number;
+  summary_data: SummaryData;
+  channel_details: ChannelDetails;
+}
+
 export interface SummaryData {
   headline_title: string;
   headline_sub_title: string;

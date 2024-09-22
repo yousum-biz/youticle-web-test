@@ -16,10 +16,10 @@ import { EDITOR_YOUTUBE_TOPICS } from "@/constants/editorTopic";
 import TopicCard from "../../components/TopicCard";
 import { timeAgo } from "../../utils/formatter";
 import EditorCard from "./EditorCard";
-import { DataProps } from "@/types/dataProps";
+import { EditorDataProps } from "@/types/dataProps";
 
 interface EditorPageClientProps {
-  apiData: DataProps[]; // 서버에서 전달된 데이터
+  apiData: EditorDataProps[]; // 서버에서 전달된 데이터
 }
 
 export default function EditorPageClient({ apiData }: EditorPageClientProps) {
