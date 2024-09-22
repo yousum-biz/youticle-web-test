@@ -111,3 +111,37 @@ export const removeMarkTags = (text: string): string => {
   // 정규식을 사용하여 <mark></mark> 태그를 삭제
   return text.replace(/<mark[^>]*>/g, "").replace(/<\/mark>/g, "");
 };
+
+export function timeAgo(dateStr: string): string {
+  const now = new Date();
+  const dateObj = new Date(dateStr);
+
+  const diffMs = now.getTime() - dateObj.getTime();
+  const diffSecs = Math.floor(diffMs / 1000);
+  const diffMins = Math.floor(diffSecs / 60);
+  const diffHours = Math.floor(diffMins / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffSecs < 60) {
+    return `${diffSecs}초 전`;
+  } else if (diffMins < 60) {
+    return `${diffMins}분 전`;
+  } else if (diffHours < 24) {
+    return `${diffHours}시간 전`;
+  } else if (diffDays < 7) {
+    return `${diffDays}일 전`;
+  } else {
+    const diffMonths =
+      (now.getFullYear() - dateObj.getFullYear()) * 12 +
+      (now.getMonth() - dateObj.getMonth());
+    const diffYears = now.getFullYear() - dateObj.getFullYear();
+
+    if (diffYears >= 1) {
+      return `${diffYears}년 전`;
+    } else if (diffMonths >= 1) {
+      return `${diffMonths}개월 전`;
+    } else {
+      return `${diffDays}일 전`;
+    }
+  }
+}

@@ -10,6 +10,7 @@ import { playerState } from "@/store/player";
 import BackIcon from "@/assets/back.svg";
 import YoutubeOffIcon from "@/assets/youtubeOff.svg";
 import YoutubeOnIcon from "@/assets/youtubeOn.svg";
+import MenuIcon from "@/assets/menu_icon.svg";
 import ShareIcon from "@/assets/share.svg";
 import Toast from "./Toast";
 import { isDesktop } from "react-device-detect";
@@ -25,10 +26,12 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
   const setPlayer = useSetRecoilState(playerState);
   const [toastVisible, setToastVisible] = useState(false);
   const [logoutBtnVisible, setLogoutBtnVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
-  const isDetailPage = pathname.includes("/detail");
+  const isDetailPage =
+    pathname.includes("/detail") || pathname.startsWith("/editor/");
 
   const copyUrlToClipboard = () => {
     const currentUrl = window.location.href;
@@ -53,7 +56,19 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
   };
 
   const goHome = () => {
+    if (pathname.startsWith("/editor/")) {
+      router.push("/editor");
+    } else {
+      router.push("/");
+    }
+  };
+
+  const goToYouTubeArticle = () => {
     router.push("/");
+  };
+
+  const goToEditorArticle = () => {
+    router.push("/editor");
   };
 
   const logOut = async () => {
@@ -64,12 +79,17 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
         email: "",
         picture: "",
       });
+      setMenuOpen((prev) => !prev);
     } catch (e) {
       console.error("Error logging out:", e);
     }
   };
-  const handleClickProfile = () => setLogoutBtnVisible(!logoutBtnVisible);
-
+  const handleClickProfile = () => {
+    setMenuOpen((prev) => !prev);
+  };
+  const handleMenuClick = () => {
+    setMenuOpen((prev) => !prev);
+  };
   const [isClientDesktop, setIsClientDesktop] = useState(false);
   useEffect(() => {
     // 클라이언트에서만 isDesktop 값을 설정
@@ -98,15 +118,33 @@ const LogoHeader = ({ title = "" }: LogoHeaderProps) => {
             <ShareIcon onClick={copyUrlToClipboard} />
           </IconSection>
         )}
-        {title === "" && user.picture !== "" && (
-          <ProfileImage onClick={handleClickProfile}>
+        {title === "" && (
+          <>
+            {!pathname.includes("/detail") &&
+              !pathname.startsWith("/editor/") &&
+              user.picture === "" && (
+                <MenuIcon onClick={handleMenuClick}></MenuIcon>
+              )}
+            {menuOpen && (
+              <MenuDropdown>
+                <MenuItem1 onClick={goToYouTubeArticle}>
+                  오늘의 유튜브 아티클
+                </MenuItem1>
+                <MenuItem2 onClick={goToEditorArticle}>에디터 아티클</MenuItem2>
+                {user.picture !== "" && (
+                  <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
+                )}
+              </MenuDropdown>
+            )}
             {user.picture !== "" && (
-              <img src={user.picture} alt="User profile" />
+              <ProfileImage onClick={handleClickProfile}>
+                <img src={user.picture} alt="User profile" />
+                {/* {logoutBtnVisible && (
+                  <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
+                )} */}
+              </ProfileImage>
             )}
-            {logoutBtnVisible && (
-              <LogoutBtn onClick={logOut}>로그아웃</LogoutBtn>
-            )}
-          </ProfileImage>
+          </>
         )}
       </Container>
       <Toast message="링크가 복사되었습니다" visible={toastVisible} />
@@ -183,20 +221,51 @@ const IconSection = styled.div`
   align-items: center;
 `;
 
-const LogoutBtn = styled.button`
-  width: 62px;
-  height: 30px;
-  padding: 6px;
-  border-radius: 4px;
+const LogoutBtn = styled.div`
+  width: 100%;
+  padding: 20px;
   background: #ffffff;
-  box-shadow: 0px 4px 4px 0px #00000040;
 
   font-family: var(--font-Pretendard);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 16.71px;
-
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 120%;
+  border-bottom: 1px solid black;
   position: absolute;
-  bottom: -35px;
+  bottom: -180px;
+  right: 0px;
+`;
+
+const MenuDropdown = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const MenuItem1 = styled.div`
+  width: 100%;
+  padding: 20px;
+  background: #ffffff;
+
+  font-family: var(--font-Pretendard);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 120%;
+  border-bottom: 1px solid black;
+  position: absolute;
+  bottom: -60px;
+  right: 0px;
+`;
+
+const MenuItem2 = styled.div`
+  width: 100%;
+  padding: 20px;
+  background: #ffffff;
+
+  font-family: var(--font-Pretendard);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 120%;
+  border-bottom: 1px solid black;
+  position: absolute;
+  bottom: -120px;
   right: 0px;
 `;

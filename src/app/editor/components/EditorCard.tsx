@@ -16,7 +16,7 @@ interface TopicCardProps extends DataProps {
   icon: React.ReactNode;
 }
 
-const TopicCard = (props: TopicCardProps) => {
+const EditorCard = (props: TopicCardProps) => {
   const router = useRouter();
   const setTopicState = useSetRecoilState(detailDataState);
   const {
@@ -31,7 +31,7 @@ const TopicCard = (props: TopicCardProps) => {
 
   const handleNavigate = () => {
     setTopicState(props);
-    router.push(`/detail/${video_id}`);
+    router.push(`/editor/${video_id}`);
   };
   const short_summary = removeMarkTags(summary_data.short_summary);
   return (
@@ -74,7 +74,7 @@ const TopicCard = (props: TopicCardProps) => {
   );
 };
 
-export default TopicCard;
+export default EditorCard;
 
 const Container = styled.div`
   display: flex;
