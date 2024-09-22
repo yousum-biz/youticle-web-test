@@ -99,8 +99,8 @@ const Container = styled.div<{
 
   margin-left: ${({ $isFixed, $hasScrolled }) =>
     $isFixed ? ($hasScrolled ? "0" : "12px") : $hasScrolled ? "0" : "12px"};
-  width: ${(props) =>
-    props.$isFixed ? "calc(100% + 20px)" : "calc(100% + 20px)"};
+  /* width: ${(props) =>
+    props.$isFixed ? "calc(100% + 20px)" : "calc(100% + 20px)"}; */
   transition: margin-left 0.3s ease;
 
   position: ${(props) => (props.$isFixed ? "fixed" : "static")};
