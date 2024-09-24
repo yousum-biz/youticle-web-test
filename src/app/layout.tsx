@@ -1,12 +1,12 @@
 "use client";
 
-import "./globals.css";
 import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyles";
 import { isDesktop } from "react-device-detect";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { RecoilRoot } from "recoil";
+import StyledComponentsRegistry from "./lib/registry";
 
 export default function RootLayout({
   children,
@@ -28,8 +28,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
+          rel="preload"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
+          as="style"
         />
         {/* Google tag (gtag.js) */}
         <script
@@ -49,20 +50,22 @@ export default function RootLayout({
       </head>
       <body>
         <RecoilRoot>
-          <AppContainer $isDesktop={isClientDesktop}>
-            <GlobalStyle />
-            <ScrollToTop />
-            {children}
-          </AppContainer>
+          <StyledComponentsRegistry>
+            <AppContainer>
+              <GlobalStyle />
+              <ScrollToTop />
+              {children}
+            </AppContainer>
+          </StyledComponentsRegistry>
         </RecoilRoot>
       </body>
     </html>
   );
 }
 
-const AppContainer = styled.div<{ $isDesktop: boolean }>`
+const AppContainer = styled.div`
   width: 100vw;
-  max-width: ${(props) => (props.$isDesktop ? "420px" : "none")};
+  max-width: none;
   min-height: 100vh;
   padding: 0;
   margin: 0;
@@ -70,6 +73,10 @@ const AppContainer = styled.div<{ $isDesktop: boolean }>`
 
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  @media screen and (min-width: 430px) {
+    max-width: 430px;
   }
 `;
 

@@ -159,7 +159,8 @@ const Container = styled.header<{
   $isDesktop: boolean;
 }>`
   width: 100%;
-  max-width: ${({ $isDesktop }) => ($isDesktop ? "420px" : "none")};
+  max-width: none;
+  /* max-width: ${({ $isDesktop }) => ($isDesktop ? "420px" : "none")}; */
   height: 52px;
   padding: 0 20px !important;
   position: fixed;
@@ -180,6 +181,10 @@ const Container = styled.header<{
     font-family: "Inter";
     font-weight: 700;
     font-size: 20px;
+  }
+
+  @media screen and (min-width: 430px) {
+    max-width: 430px;
   }
 `;
 
