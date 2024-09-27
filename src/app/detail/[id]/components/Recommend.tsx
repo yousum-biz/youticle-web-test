@@ -26,7 +26,7 @@ const Recommend = ({ detailData }: RecommendProps) => {
       try {
         // 서버사이드에서 데이터 패칭
         const response = await fetch(
-          "https://claying.shop/briefing/top_videos/",
+          "https://youticle.shop/briefing/top_videos/",
           {
             method: "GET",
           }
